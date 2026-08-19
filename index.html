@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Öğretmenler Odası | Modern Eğitim & Pedagoji Blogu</title>
+  <meta name="description" content="Öğretmenler için ders materyalleri, eğitim teknolojileri, sınıfta yapay zekâ uygulamaları ve pedagojik rehberlik platformu.">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+  
+  <!-- FontAwesome 6 (CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Ana CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       ÜST MENÜ / HEADER
+       ========================================================================== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <!-- Logo -->
+      <a href="#home" class="brand-logo" onclick="navigateTo('home')">
+        <div class="brand-icon">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">Öğretmenler Odası</span>
+          <span class="brand-subtitle">Eğitim & Teknoloji Blogu</span>
+        </div>
+      </a>
+
+      <!-- Masaüstü Navigasyon -->
+      <nav class="main-nav" aria-label="Ana Menü">
+        <a href="#home" class="nav-link active" data-nav="home" onclick="navigateTo('home')">
+          <i class="fa-solid fa-house"></i> Ana Sayfa
+        </a>
+        <a href="#blog" class="nav-link" data-nav="blog" onclick="navigateTo('blog')">
+          <i class="fa-solid fa-newspaper"></i> Blog
+        </a>
+        <a href="#categories" class="nav-link" data-nav="categories" onclick="navigateTo('categories')">
+          <i class="fa-solid fa-layer-group"></i> Kategoriler
+        </a>
+        <a href="#about" class="nav-link" data-nav="about" onclick="navigateTo('about')">
+          <i class="fa-solid fa-circle-info"></i> Hakkında
+        </a>
+        <a href="#contact" class="nav-link" data-nav="contact" onclick="navigateTo('contact')">
+          <i class="fa-solid fa-envelope"></i> İletişim
+        </a>
+      </nav>
+
+      <!-- Aksiyon Butonları -->
+      <div class="header-actions">
+        <!-- Hızlı Arama Butonu -->
+        <button class="icon-btn" id="btn-quick-search" title="Hızlı Arama (Ctrl+K)" aria-label="Arama">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+
+        <!-- Kaydedilen Yazılar (Bookmarks) -->
+        <button class="icon-btn" id="btn-open-bookmarks" title="Kaydedilen Yazılarım" aria-label="Kaydedilenler">
+          <i class="fa-regular fa-bookmark"></i>
+          <span class="badge-count" id="bookmark-badge-count" style="display: none;">0</span>
+        </button>
+
+        <!-- Tema Değiştirici (Dark/Light) -->
+        <button class="icon-btn" id="theme-toggle-btn" title="Karanlık/Aydınlık Tema" aria-label="Tema Değiştir">
+          <i class="fa-regular fa-moon" id="theme-icon"></i>
+        </button>
+
+        <!-- Mobil Menü Butonu -->
+        <button class="icon-btn mobile-toggle-btn" id="mobile-menu-btn" aria-label="Menüyü Aç">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       ANA İÇERİK ALANI (SPA GÖRÜNÜMLERİ)
+       ========================================================================== -->
+  <main id="app-main">
+
+    <!-- 1. GÖRÜNÜM: ANA SAYFA -->
+    <section id="view-home" class="view-section">
+      
+      <!-- Hero Alanı -->
+      <div class="hero-section">
+        <div class="container hero-content">
+          <div class="hero-pill">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Öğretmenler İçin Yeni Nesil Eğitim Portalı
+          </div>
+          <h1 class="hero-title">
+            Derslerinizi Zenginleştiren <br>
+            <span class="gradient-text">Fikirler, Materyaller ve Teknolojiler</span>
+          </h1>
+          <p class="hero-description">
+            Sınıfınızda hemen uygulayabileceğiniz ücretsiz ders materyalleri, yapay zekâ rehberleri, 
+            eğitim teknolojileri ve öğretmen odaklı pedagojik yaklaşımlar tek bir çatı altında.
+          </p>
+
+          <!-- Arama Kutusu -->
+          <div class="hero-search-wrapper">
+            <form class="hero-search-form" onsubmit="event.preventDefault(); handleHeroSearch();">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="hero-search-input" placeholder="Konu, materyal veya yapay zekâ promptu ara...">
+              <button type="submit" class="btn-search">Keşfet</button>
+            </form>
+          </div>
+
+          <!-- İstatistikler -->
+          <div class="hero-stats">
+            <div class="stat-item">
+              <div class="stat-icon"><i class="fa-solid fa-file-arrow-down"></i></div>
+              <div>
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Ücretsiz Materyal</div>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-icon"><i class="fa-solid fa-robot"></i></div>
+              <div>
+                <div class="stat-number">20+</div>
+                <div class="stat-label">Yapay Zekâ Şablonu</div>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+              <div>
+                <div class="stat-number">15.000+</div>
+                <div class="stat-label">Öğretmen Okuyucu</div>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-icon"><i class="fa-solid fa-award"></i></div>
+              <div>
+                <div class="stat-number">%100</div>
+                <div class="stat-label">MEB Müfredat Uyumu</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Öne Çıkan İçerikler (Featured Posts) -->
+      <section class="featured-section">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-header-left">
+              <span class="section-tag">Haftanın Öne Çıkanları</span>
+              <h2 class="section-title">Gündemdeki Eğitim İçerikleri</h2>
+              <p class="section-subtitle">Öğretmenlerimizin bu hafta en çok okuduğu ve paylaştığı rehberler.</p>
+            </div>
+            <a href="#blog" class="view-all-link" onclick="navigateTo('blog')">
+              Tümünü Gör <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+
+          <div class="featured-grid" id="home-featured-grid">
+            <!-- JavaScript ile doldurulacak -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Kategoriler Bölümü -->
+      <section class="categories-section">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-header-left">
+              <span class="section-tag">Kategoriler</span>
+              <h2 class="section-title">İlgi Alanınıza Göre Keşfedin</h2>
+              <p class="section-subtitle">Dersinize ve mesleki gelişiminize en uygun konu başlığını seçin.</p>
+            </div>
+            <a href="#categories" class="view-all-link" onclick="navigateTo('categories')">
+              Tüm Kategoriler <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+
+          <div class="categories-grid" id="home-categories-grid">
+            <!-- JavaScript ile doldurulacak -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Son Eklenen Blog Yazıları -->
+      <section class="recent-posts-section">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-header-left">
+              <span class="section-tag">Yeni Eklenenler</span>
+              <h2 class="section-title">Son Blog Yazıları</h2>
+              <p class="section-subtitle">Sürekli güncellenen pedagojik makaleler ve uygulama önerileri.</p>
+            </div>
+            <a href="#blog" class="view-all-link" onclick="navigateTo('blog')">
+              Blog Arşivi <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+
+          <div class="posts-grid" id="home-recent-grid">
+            <!-- JavaScript ile doldurulacak -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Haftanın Materyali & Topluluk Çağrısı (Teacher Toolkit Callout) -->
+      <div class="container">
+        <div class="teacher-toolkit-banner">
+          <div class="toolkit-inner">
+            <div class="toolkit-left">
+              <span class="toolkit-badge">
+                <i class="fa-solid fa-gift"></i> Özel Eğitim Paketi
+              </span>
+              <h3 class="toolkit-title">Öğretmenler İçin 50 Hazır ChatGPT Prompt Arşivi</h3>
+              <p class="toolkit-desc">
+                Ders planı çıkarma, rubrik hazırlama, veli mektubu yazma ve seviyelendirilmiş okuma parçaları 
+                üretmek için test edilmiş prompt setini hemen ücretsiz indirin.
+              </p>
+              <div class="toolkit-btn-row">
+                <button class="btn-primary-light" onclick="openArticleDetail(1)">
+                  <i class="fa-solid fa-book-open-reader"></i> Rehberi Oku & İndir
+                </button>
+                <button class="btn-outline-white" onclick="openDownloadSimulation('Ogretmenler_Icin_50_Hazir_ChatGPT_Prompt_Sablonu.pdf')">
+                  <i class="fa-solid fa-download"></i> Doğrudan PDF İndir (2.4 MB)
+                </button>
+              </div>
+            </div>
+            <div class="toolkit-right">
+              <div style="font-size: 5.5rem; opacity: 0.85; text-align: center;">
+                <i class="fa-solid fa-brain"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 2. GÖRÜNÜM: BLOG LİSTESİ VE FİLTRELEME -->
+    <section id="view-blog" class="view-section page-container" style="display: none;">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-header-left">
+            <span class="section-tag">Blog & Materyaller</span>
+            <h1 class="section-title">Eğitim Blogu Yazıları</h1>
+            <p class="section-subtitle">Arama yapın, kategorilere göre filtreleyin veya ilginizi çeken yazıyı seçin.</p>
+          </div>
+        </div>
+
+        <!-- Filtreleme ve Arama Barı -->
+        <div class="blog-filter-bar">
+          <div class="filter-top-row">
+            <!-- Canlı Arama Input -->
+            <div class="search-input-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="blog-search-input" placeholder="Başlık, etiket veya yazar ara..." oninput="handleFilterChange()">
+            </div>
+
+            <!-- Sıralama Dropdown -->
+            <div class="sort-dropdown">
+              <select id="blog-sort-select" onchange="handleFilterChange()">
+                <option value="newest">En Yeniler</option>
+                <option value="popular">En Çok Okunanlar</option>
+                <option value="likes">En Çok Beğenilenler</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Kategori Hapları (Pills) -->
+          <div class="category-pills-row" id="blog-category-pills">
+            <!-- JavaScript ile doldurulacak -->
+          </div>
+        </div>
+
+        <!-- Sonuç Bilgisi -->
+        <div class="results-info-bar">
+          <span id="results-count-text">Yazılar yükleniyor...</span>
+          <button id="btn-clear-filters" class="reading-btn" style="display:none;" onclick="resetBlogFilters()">
+            <i class="fa-solid fa-xmark"></i> Filtreleri Temizle
+          </button>
+        </div>
+
+        <!-- Blog Kartları Grid -->
+        <div class="posts-grid" id="blog-posts-grid">
+          <!-- JavaScript ile doldurulacak -->
+        </div>
+
+        <!-- Boş Sonuç Durumu -->
+        <div class="empty-state" id="blog-empty-state" style="display: none;">
+          <div class="empty-icon"><i class="fa-solid fa-search"></i></div>
+          <h3>Aradığınız kriterlere uygun yazı bulunamadı</h3>
+          <p style="color: var(--text-secondary); margin: 8px 0 16px;">Farklı bir arama terimi deneyebilir veya filtreleri sıfırlayabilirsiniz.</p>
+          <button class="btn-primary-light" onclick="resetBlogFilters()">Tüm Yazıları Göster</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. GÖRÜNÜM: KATEGORİLER DETAY REHBERİ -->
+    <section id="view-categories" class="view-section page-container" style="display: none;">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-header-left">
+            <span class="section-tag">Kategori Rehberi</span>
+            <h1 class="section-title">Tüm Eğitim Kategorileri</h1>
+            <p class="section-subtitle">İhtiyacınız olan alandaki tüm pedagojik kaynakları ve yazıları listeleyin.</p>
+          </div>
+        </div>
+
+        <div class="categories-grid" id="full-categories-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
+          <!-- JavaScript ile doldurulacak -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. GÖRÜNÜM: HAKKINDA SAYFASI -->
+    <section id="view-about" class="view-section page-container" style="display: none;">
+      <div class="container">
+        <div class="about-hero">
+          <span class="section-tag">Misyonumuz & Vizyonumuz</span>
+          <h1 class="section-title" style="font-size: 2.4rem; margin: 10px 0 16px;">Öğretmenlerin Yanında, Geleceğin Sınıflarında</h1>
+          <p class="section-subtitle" style="font-size: 1.1rem; line-height: 1.7;">
+            Öğretmenler Odası; eğitimcilerin ders hazırlık süreçlerini kolaylaştırmak, dijital pedagojiyi sınıflara taşımak 
+            ve öğretmenler arası mesleki dayanışmayı güçlendirmek amacıyla kurulmuş bağımsız bir eğitim platformudur.
+          </p>
+        </div>
+
+        <!-- Değerlerimiz -->
+        <div class="about-values-grid">
+          <div class="value-card">
+            <div class="value-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <h3>Pedagojik Güvenilirlik</h3>
+            <p style="color: var(--text-secondary); font-size: 0.92rem; margin-top: 8px;">
+              Paylaşılan her içerik ve materyal, sınıf ortamında test edilmiş ve MEB kazanımlarıyla uyumluluğu doğrulanmış pedagojik temellere dayanır.
+            </p>
+          </div>
+          <div class="value-card">
+            <div class="value-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--accent-green);">
+              <i class="fa-solid fa-box-open"></i>
+            </div>
+            <h3>Pratik ve Uygulanabilir</h3>
+            <p style="color: var(--text-secondary); font-size: 0.92rem; margin-top: 8px;">
+              Teorik bilgi kalabalığı yerine, yarın sabah ilk dersinizde akıllı tahtada hemen kullanabileceğiniz somut çalışma kağıtları ve hazır araçlar sunuyoruz.
+            </p>
+          </div>
+          <div class="value-card">
+            <div class="value-icon" style="background: rgba(2, 132, 199, 0.1); color: var(--secondary);">
+              <i class="fa-solid fa-handshake-angle"></i>
+            </div>
+            <h3>Açık ve Ücretsiz Paylaşım</h3>
+            <p style="color: var(--text-secondary); font-size: 0.92rem; margin-top: 8px;">
+              Eğitimde fırsat eşitliğini destekliyor; tüm öğretmenlerimizin ders materyallerine sınırsız ve ücretsiz erişmesini savunuyoruz.
+            </p>
+          </div>
+        </div>
+
+        <!-- Yazar ve Editör Kadrosu -->
+        <div class="section-header" style="margin-top: 60px;">
+          <div class="section-header-left">
+            <span class="section-tag">Yazarlarımız</span>
+            <h2 class="section-title">Eğitimci ve Uzman Kadromuz</h2>
+            <p class="section-subtitle">Farklı branş ve kademelerden deneyimli öğretmenlerimiz ve akademisyenlerimiz.</p>
+          </div>
+        </div>
+
+        <div class="authors-grid" id="about-authors-grid">
+          <!-- JavaScript ile doldurulacak -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. GÖRÜNÜM: İLETİŞİM VE SSS SAYFASI -->
+    <section id="view-contact" class="view-section page-container" style="display: none;">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-header-left">
+            <span class="section-tag">Bize Ulaşın</span>
+            <h1 class="section-title">İletişim & Katkıda Bulunun</h1>
+            <p class="section-subtitle">Sorularınız, materyal önerileriniz veya blog yazarlığı başvurunuz için bize mesaj bırakın.</p>
+          </div>
+        </div>
+
+        <div class="contact-layout">
+          <!-- İletişim Formu -->
+          <div class="contact-card">
+            <h3 style="font-size: 1.3rem; margin-bottom: 20px; font-weight: 800;">
+              <i class="fa-regular fa-paper-plane" style="color: var(--primary); margin-right: 8px;"></i> Mesaj Gönderin
+            </h3>
+            <form id="contact-form" onsubmit="handleContactSubmit(event)">
+              <div class="form-group">
+                <label class="form-label" for="contact-name">Adınız Soyadınız *</label>
+                <input type="text" id="contact-name" class="form-control" placeholder="Örn: Ayşe Yılmaz" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contact-email">E-posta Adresiniz *</label>
+                <input type="email" id="contact-email" class="form-control" placeholder="ornek@ogretmen.meb.k12.tr" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contact-branch">Branşınız / Görev Yaptığınız Kademe</label>
+                <select id="contact-branch" class="form-control">
+                  <option value="sinif">Sınıf Öğretmeni</option>
+                  <option value="matematik">Matematik</option>
+                  <option value="fen">Fen Bilimleri / Fizik / Kimya / Biyoloji</option>
+                  <option value="turkce">Türkçe / Türk Dili ve Edebiyatı</option>
+                  <option value="ingilizce">Yabancı Dil</option>
+                  <option value="bilisim">Bilişim Teknolojileri</option>
+                  <option value="pdr">Rehberlik & Psikolojik Danışmanlık</option>
+                  <option value="diger">Diğer Branşlar</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contact-subject">Konu *</label>
+                <input type="text" id="contact-subject" class="form-control" placeholder="Örn: Yapay Zekâ Materyali Paylaşımı" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contact-message">Mesajınız *</label>
+                <textarea id="contact-message" class="form-control" placeholder="Mesajınızı, önerinizi veya paylaşmak istediğiniz materyal detayını yazın..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn-submit">
+                <i class="fa-solid fa-paper-plane"></i> Mesajı Gönder
+              </button>
+            </form>
+          </div>
+
+          <!-- SSS & İletişim Bilgileri -->
+          <div>
+            <h3 style="font-size: 1.3rem; margin-bottom: 20px; font-weight: 800;">
+              <i class="fa-regular fa-circle-question" style="color: var(--primary); margin-right: 8px;"></i> Sıkça Sorulan Sorular
+            </h3>
+            
+            <div class="faq-accordion" id="faq-container">
+              <!-- JavaScript ile doldurulacak -->
+            </div>
+
+            <!-- Doğrudan İletişim Kutusu -->
+            <div style="margin-top: 30px; padding: 24px; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1.05rem; margin-bottom: 12px; font-weight: 700;">Topluluk E-postası</h4>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 12px;">
+                Resmi yazışmalar ve kurumsal işbirlikleri için doğrudan bize e-posta yoluyla ulaşabilirsiniz:
+              </p>
+              <a href="mailto:iletisim@ogretmenlerodasi.org" style="color: var(--primary); font-weight: 700; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 8px;">
+                <i class="fa-regular fa-envelope"></i> iletisim@ogretmenlerodasi.org
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       BLOG DETAY / OKUYUCU MODAL (SINGLE POST VIEW)
+       ========================================================================== -->
+  <div class="modal-overlay" id="article-modal" onclick="handleModalBackdropClick(event)">
+    <article class="article-modal" role="dialog" aria-modal="true">
+      <!-- Modal Üst Çubuk -->
+      <div class="article-modal-header">
+        <button class="reading-btn" onclick="closeArticleModal()" title="Kapat">
+          <i class="fa-solid fa-arrow-left"></i> Geri Dön
+        </button>
+
+        <div class="reading-actions">
+          <!-- Yazı Boyutu Değiştirici -->
+          <button class="reading-btn" id="btn-toggle-font" onclick="toggleFontSize()" title="Yazı Boyutunu Değiştir">
+            <i class="fa-solid fa-font"></i> Boyut
+          </button>
+
+          <!-- Yer İmi Butonu -->
+          <button class="reading-btn" id="btn-modal-bookmark" onclick="toggleModalBookmark()" title="Yer İmlerine Ekle">
+            <i class="fa-regular fa-bookmark"></i> <span id="modal-bookmark-text">Kaydet</span>
+          </button>
+
+          <!-- Bağlantı Kopyala / Paylaş -->
+          <button class="reading-btn" onclick="shareCurrentArticle()" title="Bağlantıyı Kopyala">
+            <i class="fa-solid fa-share-nodes"></i> Paylaş
+          </button>
+
+          <!-- Kapat Çarpı -->
+          <button class="icon-btn" onclick="closeArticleModal()" aria-label="Kapat" style="width: 32px; height: 32px;">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal İçeriği -->
+      <div class="article-modal-body" id="article-modal-body">
+        <!-- JavaScript ile dinamik olarak doldurulacak -->
+      </div>
+    </article>
+  </div>
+
+  <!-- ==========================================================================
+       KAYDEDİLENLER (BOOKMARKS) DRAWER
+       ========================================================================== -->
+  <div class="drawer-backdrop" id="bookmarks-backdrop" onclick="closeBookmarksDrawer()"></div>
+  <aside class="side-drawer" id="bookmarks-drawer" aria-label="Kaydedilen Yazılar">
+    <div class="drawer-header">
+      <h3 class="drawer-title">
+        <i class="fa-solid fa-bookmark" style="color: var(--primary);"></i> Kaydedilen Yazılarım
+      </h3>
+      <button class="icon-btn" onclick="closeBookmarksDrawer()" aria-label="Kapat" style="width: 32px; height: 32px;">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="drawer-body" id="bookmarks-drawer-body">
+      <!-- JavaScript ile doldurulacak -->
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       MOBİL MENÜ DRAWER
+       ========================================================================== -->
+  <div class="drawer-backdrop" id="mobile-drawer-backdrop" onclick="closeMobileMenu()"></div>
+  <aside class="side-drawer" id="mobile-drawer" style="right: auto; left: 0; transform: translateX(-100%);" aria-label="Mobil Menü">
+    <div class="drawer-header">
+      <div class="brand-logo">
+        <div class="brand-icon" style="width:34px; height:34px; font-size:1rem;">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <span class="brand-title" style="font-size: 1.1rem;">Öğretmenler Odası</span>
+      </div>
+      <button class="icon-btn" onclick="closeMobileMenu()" aria-label="Kapat" style="width: 32px; height: 32px;">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="drawer-body" style="gap: 8px;">
+      <a href="#home" class="nav-link" onclick="navigateTo('home'); closeMobileMenu();">
+        <i class="fa-solid fa-house"></i> Ana Sayfa
+      </a>
+      <a href="#blog" class="nav-link" onclick="navigateTo('blog'); closeMobileMenu();">
+        <i class="fa-solid fa-newspaper"></i> Blog Yazıları
+      </a>
+      <a href="#categories" class="nav-link" onclick="navigateTo('categories'); closeMobileMenu();">
+        <i class="fa-solid fa-layer-group"></i> Kategoriler
+      </a>
+      <a href="#about" class="nav-link" onclick="navigateTo('about'); closeMobileMenu();">
+        <i class="fa-solid fa-circle-info"></i> Hakkında
+      </a>
+      <a href="#contact" class="nav-link" onclick="navigateTo('contact'); closeMobileMenu();">
+        <i class="fa-solid fa-envelope"></i> İletişim
+      </a>
+
+      <hr style="border: 0; border-top: 1px solid var(--border-subtle); margin: 16px 0;">
+      
+      <div style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px;">
+        Popüler Kategoriler
+      </div>
+      <button class="nav-link" onclick="filterByCategory('yapay-zeka'); closeMobileMenu();" style="text-align:left; width: 100%;">
+        <i class="fa-solid fa-brain" style="color: var(--primary);"></i> Yapay Zekâ
+      </button>
+      <button class="nav-link" onclick="filterByCategory('ders-materyalleri'); closeMobileMenu();" style="text-align:left; width: 100%;">
+        <i class="fa-solid fa-folder-open" style="color: var(--secondary);"></i> Ders Materyalleri
+      </button>
+      <button class="nav-link" onclick="filterByCategory('egitim-teknolojileri'); closeMobileMenu();" style="text-align:left; width: 100%;">
+        <i class="fa-solid fa-laptop-code" style="color: var(--accent-green);"></i> Eğitim Teknolojileri
+      </button>
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       TOAST BİLDİRİM KAPSAYICISI
+       ========================================================================== -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- ==========================================================================
+       SİTE ALTI / FOOTER
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <div class="brand-icon">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div class="brand-text">
+              <span class="brand-title">Öğretmenler Odası</span>
+              <span class="brand-subtitle">Eğitim & Teknoloji Portalı</span>
+            </div>
+          </div>
+          <p>
+            Öğretmenlerin ders hazırlıklarını hızlandıran, dijital eğitim teknolojilerini ve yapay zekâyı 
+            sınıfa taşıyan bağımsız öğretmen platformu.
+          </p>
+          <div style="display: flex; gap: 12px;">
+            <a href="#" class="icon-btn" title="Twitter / X" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" class="icon-btn" title="Instagram" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="icon-btn" title="YouTube" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#" class="icon-btn" title="LinkedIn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Hızlı Bağlantılar</h4>
+          <ul class="footer-links">
+            <li><a href="#home" onclick="navigateTo('home')">Ana Sayfa</a></li>
+            <li><a href="#blog" onclick="navigateTo('blog')">Tüm Blog Yazıları</a></li>
+            <li><a href="#categories" onclick="navigateTo('categories')">Kategoriler</a></li>
+            <li><a href="#about" onclick="navigateTo('about')">Hakkımızda</a></li>
+            <li><a href="#contact" onclick="navigateTo('contact')">İletişim & Yazarlık</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Öne Çıkan Konular</h4>
+          <ul class="footer-links">
+            <li><a href="#blog" onclick="filterByCategory('yapay-zeka')">ChatGPT Promptları</a></li>
+            <li><a href="#blog" onclick="filterByCategory('ders-materyalleri')">Ders Materyalleri</a></li>
+            <li><a href="#blog" onclick="filterByCategory('egitim-teknolojileri')">Web 2.0 Araçları</a></li>
+            <li><a href="#blog" onclick="filterByCategory('pedagoji-rehberlik')">Pozitif Sınıf Yönetimi</a></li>
+            <li><a href="#blog" onclick="filterByCategory('olcme-degerlendirme')">Rubrik Şablonları</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Haftalık Öğretmen Bülteni</h4>
+          <p style="color: var(--text-secondary); font-size: 0.88rem; margin-bottom: 14px;">
+            Haftanın en iyi ders materyalleri ve yapay zekâ ipuçları her Pazar sabahı e-postanızda.
+          </p>
+          <form class="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
+            <input type="email" class="newsletter-input" id="newsletter-email" placeholder="E-posta adresinizi girin" required>
+            <button type="submit" class="btn-newsletter">
+              <i class="fa-regular fa-paper-plane"></i> Ücretsiz Abone Ol
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © 2026 <strong>Öğretmenler Odası</strong>. Tüm hakları saklıdır. Eğitimciler için sevgiyle geliştirildi.
+        </div>
+        <div style="display: flex; gap: 16px;">
+          <a href="#about" onclick="navigateTo('about')">Kullanım Şartları</a>
+          <a href="#about" onclick="navigateTo('about')">Gizlilik Politikası</a>
+          <a href="#contact" onclick="navigateTo('contact')">Açık Kaynak & Destek</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Veri Dosyası -->
+  <script src="data/posts.js"></script>
+  <!-- Ana JavaScript Uygulaması -->
+  <script src="app.js"></script>
+</body>
+</html>

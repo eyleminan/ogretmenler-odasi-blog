@@ -1,0 +1,11 @@
+# OS & Editör Dosyaları
+.DS_Store
+Thumbs.db
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# Node
+node_modules/
