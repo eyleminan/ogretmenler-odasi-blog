@@ -1,480 +1,375 @@
 /**
- * Öğretmenler İçin Eğitim Blogu - Veri Tabanı ve Örnek İçerikler
+ * Yahşihan Ölçme Değerlendirme Merkezi (Yahşihan ÖDM)
+ * İlkokul (1., 2., 3., 4. Sınıf) Eğitim Blogu ve Materyal Veri Tabanı
+ * "Öğrencilere Destek, Öğretmenlere Yardımcı"
  */
 
-const BLOG_DATA = {
+const DEFAULT_BLOG_DATA = {
+  siteInfo: {
+    name: "Yahşihan Ölçme Değerlendirme Merkezi",
+    shortName: "Yahşihan ÖDM",
+    slogan: "Öğrencilere Destek, Öğretmenlere Yardımcı",
+    description: "1., 2., 3. ve 4. sınıf öğretmenlerimiz ve öğrencilerimiz için ücretsiz ders materyalleri, süreç odaklı ölçme araçları, okuma-yazma etkinlikleri ve sınıf içi dijital rehberler.",
+    city: "Kırıkkale / Yahşihan",
+    email: "yahsihanodm@meb.gov.tr"
+  },
+
   categories: [
     {
-      id: "yapay-zeka",
-      name: "Yapay Zekâ",
-      icon: "fa-solid fa-brain",
-      color: "#4f46e5",
-      bgColor: "rgba(79, 70, 229, 0.08)",
-      description: "Eğitimde ChatGPT, Claude, görsel üretim araçları ve yapay zekâ destekli ders hazırlık rehberleri.",
-      count: 2
+      id: "1-sinif",
+      name: "1. Sınıf Materyalleri",
+      icon: "fa-solid fa-shapes",
+      color: "#ec4899",
+      bgColor: "rgba(236, 72, 153, 0.08)",
+      description: "İlk okuma-yazma, ses temelli hece çalışmaları, çizgi etkinlikleri, el-göz koordinasyonu ve somut matematik.",
+      gradeLevel: "1. Sınıf"
     },
     {
-      id: "ders-materyalleri",
-      name: "Ders Materyalleri",
-      icon: "fa-solid fa-folder-open",
+      id: "2-sinif",
+      name: "2. Sınıf Materyalleri",
+      icon: "fa-solid fa-puzzle-piece",
+      color: "#8b5cf6",
+      bgColor: "rgba(139, 92, 246, 0.08)",
+      description: "Ritmik saymalar, çarpım tablosu oyunları, anlamlı okuma metinleri ve temel hayat bilgisi etkinlikleri.",
+      gradeLevel: "2. Sınıf"
+    },
+    {
+      id: "3-sinif",
+      name: "3. Sınıf Materyalleri",
+      icon: "fa-solid fa-cubes",
       color: "#0284c7",
       bgColor: "rgba(2, 132, 199, 0.08)",
-      description: "Tüm branşlar için hazır çalışma yaprakları, sunumlar, interaktif etkinlikler ve indirilebilir PDF'ler.",
-      count: 2
+      description: "5N1K okuduğunu anlama sayfaları, problem çözme stratejileri, fen bilimleri keşif kartları.",
+      gradeLevel: "3. Sınıf"
     },
     {
-      id: "egitim-teknolojileri",
-      name: "Eğitim Teknolojileri",
-      icon: "fa-solid fa-laptop-code",
+      id: "4-sinif",
+      name: "4. Sınıf Materyalleri",
+      icon: "fa-solid fa-graduation-cap",
       color: "#059669",
       bgColor: "rgba(5, 150, 105, 0.08)",
-      description: "Sınıf içi etkileşim araçları, dijital tahta uygulamaları, web 2.0 araçları ve eğitim yazılımları.",
-      count: 1
-    },
-    {
-      id: "pedagoji-rehberlik",
-      name: "Pedagoji & Rehberlik",
-      icon: "fa-solid fa-chalkboard-user",
-      color: "#d97706",
-      bgColor: "rgba(217, 119, 6, 0.08)",
-      description: "Sınıf yönetimi, öğrenci motivasyonu, pozitif disiplin stratejileri ve veli iletişimi rehberleri.",
-      count: 2
+      description: "Beceri temelli sorular, sosyal bilgiler projeleri, yer kabuğu deneyleri ve ortaokula hazırlık fasikülleri.",
+      gradeLevel: "4. Sınıf"
     },
     {
       id: "olcme-degerlendirme",
       name: "Ölçme & Değerlendirme",
       icon: "fa-solid fa-square-poll-vertical",
-      color: "#db2777",
-      bgColor: "rgba(219, 39, 119, 0.08)",
-      description: "Yeni nesil soru hazırlama teknikleri, rubrik şablonları, formatif ve summatif değerlendirme araçları.",
-      count: 1
+      color: "#d97706",
+      bgColor: "rgba(217, 119, 6, 0.08)",
+      description: "İlkokul için süreç odaklı rubrikler, gözlem formları, öğrenci öz değerlendirme ve biçimlendirici testler.",
+      gradeLevel: "Tüm Kademeler"
+    },
+    {
+      id: "ogretmen-teknoloji",
+      name: "Öğretmen & Teknoloji",
+      icon: "fa-solid fa-wand-magic-sparkles",
+      color: "#4f46e5",
+      bgColor: "rgba(79, 70, 229, 0.08)",
+      description: "Sınıf öğretmenleri için yapay zekâ ile masal/boyama sayfası üretimi, akıllı tahta oyunları ve sınıf yönetimi.",
+      gradeLevel: "Öğretmen Rehberi"
     }
   ],
 
   authors: {
-    "zeynep-kaya": {
-      name: "Öğr. Gör. Zeynep Kaya",
-      title: "Eğitim Teknoloğu & Yapay Zekâ Eğitmeni",
+    "ayse-ogretmen": {
+      name: "Ayşe Çelik",
+      title: "Uzman Sınıf Öğretmeni (1. & 2. Sınıf)",
       avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300",
-      bio: "12 yıldır öğretmen eğitimi, dijital pedagoji ve sınıfta üretken yapay zekâ entegrasyonu üzerine çalışmaktadır."
+      bio: "14 yıldır ilkokul 1. ve 2. sınıflarda ilk okuma-yazma öğretimi ve oyun temelli matematik üzerine çalışan sınıf öğretmeni."
     },
-    "murat-demir": {
-      name: "Murat Demir",
-      title: "Uzman Matematik Öğretmeni",
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300",
-      bio: "Ortaokul ve lise kademelerinde GeoGebra ve somutlaştırılmış matematik etkinlikleri geliştiren eğitim gönüllüsü."
-    },
-    "elif-sahin": {
-      name: "Elif Şahin",
-      title: "Bilişim Teknolojileri & Kodlama Öğretmeni",
-      avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=300",
-      bio: "Web 2.0 araçları, eğitsel oyunlaştırma ve sınıf içi interaktif etkileşim platformları uzmanı."
-    },
-    "ahmet-yilmaz": {
-      name: "Dr. Ahmet Yılmaz",
-      title: "Eğitim Bilimci & PDR Uzmanı",
+    "mehmet-odm": {
+      name: "Mehmet Yılmaz",
+      title: "Ölçme ve Değerlendirme Koordinatörü",
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300",
-      bio: "Sınıf iklimi, pozitif disiplin yöntemleri ve öğretmen iyi oluş hali (well-being) araştırmacısı."
+      bio: "Yahşihan ÖDM bünyesinde ilkokul kademesi beceri temelli değerlendirme ve rubrik geliştirme sorumlusu."
     },
-    "selin-yurtsever": {
-      name: "Selin Yurtsever",
-      title: "Ölçme ve Değerlendirme Uzmanı",
-      avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=300",
-      bio: "Beceri temelli soru yazımı, dereceli puanlama anahtarı (rubrik) geliştirme ve MEB müfredat danışmanı."
+    "zeynep-hoca": {
+      name: "Zeynep Demir",
+      title: "Sınıf Öğretmeni & Eğitim Teknoloğu (3. & 4. Sınıf)",
+      avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=300",
+      bio: "İlkokulda akıllı tahta uygulamaları, dijital oyunlaştırma ve 4. sınıf fen deneyleri üzerine içerik geliştirmektedir."
+    },
+    "emre-hoca": {
+      name: "Emre Aksoy",
+      title: "İlkokul Matematik ve PDR Danışmanı",
+      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300",
+      bio: "İlkokul öğrencilerinde dikkat ve odaklanma oyunları, somut matematik materyalleri ve pozitif sınıf iklimi uzmanı."
     }
   },
 
   posts: [
     {
       id: 1,
-      slug: "ogretmenler-icin-chatgpt-ve-yapay-zeka-rehberi",
-      title: "Öğretmenler İçin ChatGPT ve Yapay Zekâ Rehberi: 10 Kat Hızlı Ders Planı ve Sınav Hazırlama",
-      category: "yapay-zeka",
-      categoryName: "Yapay Zekâ",
-      categoryColor: "#4f46e5",
-      date: "18 Ağustos 2026",
-      readTime: "6 dk okuma",
-      views: 3420,
-      likes: 218,
-      authorKey: "zeynep-kaya",
+      slug: "1-sinif-ilk-okuma-yazma-surecinde-heceleme-ve-ses-etkinlikleri",
+      title: "1. Sınıf İlk Okuma Yazma Sürecinde Heceleme ve Ses Temelli Cümle Etkinlikleri Seti",
+      category: "1-sinif",
+      categoryName: "1. Sınıf Materyalleri",
+      categoryColor: "#ec4899",
+      date: "19 Ağustos 2026",
+      readTime: "5 dk okuma",
+      views: 3820,
+      likes: 275,
+      authorKey: "ayse-ogretmen",
       isFeatured: true,
-      coverImage: "https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&q=80&w=1200",
-      excerpt: "Haftalık ders planlarını, Bloom taksonomisine uygun soru köklerini ve seviyelendirilmiş okuma metinlerini yapay zekâ ile dakikalar içinde nasıl hazırlayabilirsiniz?",
-      tags: ["ChatGPT", "Yapay Zekâ", "Ders Planı", "Bloom Taksonomisi", "Prompt Mühendisliği"],
+      coverImage: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=1200",
+      excerpt: "1. sınıf minik öğrencilerimiz için harf gruplarına göre ayrılmış, boyama ve kes-yapıştır destekli somut ilk okuma çalışma yaprakları.",
+      tags: ["1. Sınıf", "İlk Okuma Yazma", "Ses Grubu", "Hece Tablosu", "Çalışma Kağıdı"],
       materials: [
         {
-          name: "Ogretmenler_Icin_50_Hazir_ChatGPT_Prompt_Sablonu.pdf",
-          size: "2.4 MB",
+          name: "1_Sinif_ANETIL_Ses_Grubu_Hece_ve_Okuma_Fasikulu.pdf",
+          size: "4.8 MB",
           format: "PDF",
           icon: "fa-solid fa-file-pdf"
         },
         {
-          name: "Bloom_Taksonomisine_Uygun_Soru_Uretim_Matrisi.xlsx",
-          size: "450 KB",
-          format: "XLSX",
-          icon: "fa-solid fa-file-excel"
+          name: "Gorselli_Hece_Birlestirme_ve_Cizgi_Calismalari.pdf",
+          size: "3.2 MB",
+          format: "PDF",
+          icon: "fa-solid fa-file-pdf"
         }
       ],
       content: `
-        <p class="lead">Geleneksel ders hazırlığı süreçleri; haftalık kazanım planları, farklı öğrenme hızlarına göre ödev ayrıştırma ve soru hazırlama gibi adımlarla öğretmenlerin saatlerini alabiliyor. Doğru kurgulanmış yapay zekâ komutları (promptlar) sayesinde bu süreyi %80 oranında kısaltmak mümkün.</p>
-        
-        <h2>1. Yapay Zekâ Bir Öğretmenin Yerini Alabilir mi?</h2>
-        <p>Kesinlikle hayır. Yapay zekâ bir "öğretmen" değil; öğretmenin yükünü hafifleten, fikir veren ve rutin görevleri otomatize eden çok güçlü bir <strong>öğretmen asistanıdır</strong>. Pedagojik kararlar, öğrencinin gözünün içine bakarak anlaşılan duygu durumu ve sınıf atmosferinin yönetimi daima öğretmenin tekelindedir.</p>
+        <p class="lead">1. sınıf ilk okuma yazma süreci, hem minik öğrencilerimiz hem de öğretmenlerimiz için sabır, oyun ve somutlaştırma gerektiren büyülü bir yolculuktur. Harfleri yalnızca tahtaya yazmak yerine çoklu duyuya hitap eden etkinliklerle kalıcı hale getiriyoruz.</p>
+
+        <h2>1. Ses Hissettirme ve Çoklu Duyu Etkinlikleri</h2>
+        <p>Her yeni sese geçerken masal anlatımı, tekerleme ve drama ile sesin melodisini hissettirmek kritik öneme sahiptir. Öğrencilerin sesi parmaklarıyla havada, kum havuzunda ve oyun hamurunda şekillendirmesi kas hafızasını hızlandırır.</p>
 
         <div class="callout callout-tip">
           <div class="callout-icon"><i class="fa-solid fa-lightbulb"></i></div>
           <div class="callout-body">
-            <h4>Altın Kural: Rol + Bağlam + Görev + Format</h4>
-            <p>ChatGPT'ye sadece <em>"Bana 7. sınıf fen ders planı yaz"</em> demek yerine; <em>"Sen deneyimli bir fen bilimleri öğretmenisin. 7. sınıf 'Kuvvet ve Enerji' ünitesi için 40 dakikalık, 5E öğrenme modeline uygun, interaktif etkinlik içeren bir ders akışı hazırla."</em> şeklinde komut vermelisiniz.</p>
+            <h4>Öğretmen Tavsiyesi: Hece Treni Oyunu</h4>
+            <p>Sınıfta oluşturacağınız 3 vagonlu bir karton tren maketine hece kartlarını takarak öğrencilerin yeni kelimeleri birleştirirken eğlenerek okumasını sağlayabilirsiniz.</p>
           </div>
         </div>
 
-        <h2>2. Bloom Taksonomisine Uygun Çoktan Seçmeli ve Açık Uçlu Soru Üretimi</h2>
-        <p>Öğrencilerinizin sadece ezber düzeyini (Hatırlama) değil; analiz, değerlendirme ve sentez basamaklarını ölçmek istiyorsanız aşağıdaki prompt yapısını kullanabilirsiniz:</p>
-
-        <pre><code>[KAZANIM]: 8. Sınıf Türkçe - Cümlenin Ögeleri
-[HEDEF SEVİYE]: LGS formatında, beceri temelli ve günlük yaşam senaryolu.
-[İSTEK]: Yukarıdaki kazanıma yönelik; 2 adet hatırlama, 2 adet analiz ve 1 adet sentez düzeyinde 5 adet çoktan seçmeli soru hazırla. Her sorunun doğru cevabını ve çeldiricilerin pedagojik açıklamasını ekle.</code></pre>
-
-        <h2>3. Farklılaştırılmış Öğretim (Differentiated Instruction)</h2>
-        <p>Aynı sınıfta bulunan farklı anlama hızlarındaki öğrenciler için aynı metnin 3 farklı seviyesini üretmek ChatGPT ile 30 saniyelik bir iştir:</p>
+        <h2>2. Ezberletmeden Anlamlı Okumaya Geçiş</h2>
+        <p>Hece ezberletmek yerine açık ve kapalı hecelerin ses birleşim mantığını kavratmak, ilerleyen aylardaki akıcı okumanın temel taşıdır.</p>
         <ul>
-          <li><strong>Seviye 1 (Temel Düzey):</strong> Kısa cümleler, sadeleştirilmiş terimler ve görsel betimlemeler.</li>
-          <li><strong>Seviye 2 (Müfredat Standart):</strong> Standart 6. sınıf kazanım düzeyi.</li>
-          <li><strong>Seviye 3 (İleri Düzey / Zenginleştirilmiş):</strong> Kritik düşünme soruları ve çapraz disiplin bağlantıları.</li>
+          <li><strong>Açık Heceler:</strong> Ba, Ka, Sa, Ma gibi ünlüyle biten canlı heceler.</li>
+          <li><strong>Kapalı Heceler:</strong> Ak, El, On, Al gibi ses birleşimleri.</li>
+          <li><strong>3 Sesli Anlamlı Kelimeler:</strong> Bak, Gel, Koş, Tut gibi eylem bildiren sözcükler.</li>
         </ul>
 
-        <div class="callout callout-info">
-          <div class="callout-icon"><i class="fa-solid fa-download"></i></div>
-          <div class="callout-body">
-            <h4>Dersinizde Hemen Kullanabileceğiniz Ekler</h4>
-            <p>Aşağıdaki materyaller bölümünden, Türkiye müfredatına özel test edilmiş 50 adet öğretmen prompt şablonunu tek tıkla cihazınıza indirebilirsiniz.</p>
-          </div>
-        </div>
+        <h2>3. İndirilebilir Sınıf İçi Materyaller</h2>
+        <p>Aşağıdaki bağlantılardan MEB 1. sınıf müfredatına %100 uyumlu, yazdırılabilir A4 boyutundaki fasikülleri ücretsiz olarak indirebilirsiniz.</p>
       `
     },
     {
       id: 2,
-      slug: "matematik-icin-interaktif-geogebra-ve-calisma-kagitlari",
-      title: "Ortaokul ve Lise Matematik İçin İnteraktif GeoGebra ve Çalışma Kâğıtları Seti",
-      category: "ders-materyalleri",
-      categoryName: "Ders Materyalleri",
-      categoryColor: "#0284c7",
-      date: "15 Ağustos 2026",
+      slug: "2-sinif-ritmik-saymalar-ve-carpim-tablosunu-somutlastiran-oyun-kartlari",
+      title: "2. Sınıf Ritmik Saymalar ve Çarpım Tablosunu Somutlaştıran Oyun Kartları Paketi",
+      category: "2-sinif",
+      categoryName: "2. Sınıf Materyalleri",
+      categoryColor: "#8b5cf6",
+      date: "16 Ağustos 2026",
       readTime: "4 dk okuma",
-      views: 2890,
-      likes: 194,
-      authorKey: "murat-demir",
+      views: 3120,
+      likes: 215,
+      authorKey: "ayse-ogretmen",
       isFeatured: true,
-      coverImage: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=1200",
-      excerpt: "Öğrencilerin geometri ve fonksiyonları soyut bir ezber yerine dinamik sürgülerle keşfederek öğrenmelerini sağlayan hazır GeoGebra materyal paketi.",
-      tags: ["Matematik", "GeoGebra", "Ders Materyali", "Geometri", "LGS & YKS"],
+      coverImage: "https://images.unsplash.com/photo-1596495578065-6e0763fa1178?auto=format&fit=crop&q=80&w=1200",
+      excerpt: "2., 3., 4., 5. ve 10'ar ritmik saymayı ve çarpım tablosu mantığını ezberletmeden oyunlaştıran renkli flash kartlar ve tombala oyunu.",
+      tags: ["2. Sınıf", "Ritmik Sayma", "Çarpım Tablosu", "Matematik Oyunu", "İlkokul Matematik"],
       materials: [
         {
-          name: "GeoGebra_Trigonometri_ve_Fonksiyonlar_Paketi.zip",
-          size: "8.1 MB",
-          format: "ZIP",
-          icon: "fa-solid fa-file-zipper"
+          name: "2_Sinif_Carpim_Tablosu_Tombala_ve_Oyun_Seti.pdf",
+          size: "6.1 MB",
+          format: "PDF",
+          icon: "fa-solid fa-file-pdf"
         },
         {
-          name: "Somut_Matematik_Etkinlik_Sayfalari_PDF.pdf",
-          size: "4.7 MB",
+          name: "Ritmik_Sayma_Tirtil_ve_Merdiven_Panosu.pdf",
+          size: "2.9 MB",
           format: "PDF",
           icon: "fa-solid fa-file-pdf"
         }
       ],
       content: `
-        <p class="lead">Matematik öğretiminde en büyük zorluklardan biri, öğrencilerin 2 boyutlu tahtada veya defterde soyut kalan kavramları zihinlerinde canlandıramamasıdır. GeoGebra gibi dinamik yazılımlar bu bariyeri tamamen ortadan kaldırıyor.</p>
+        <p class="lead">İlkokul 2. sınıfta matematik sevgisinin temelini 'tekrar eden toplama işlemi' olarak çarpma kavramı oluşturur. Ritmik saymaları ritim, müzik ve renkli kartlarla öğrenen çocuklar çarpım tablosundan korkmaz!</p>
 
-        <h2>Neden Dinamik Geometri Araçları?</h2>
-        <p>Öğrenciye bir üçgenin iç açıları toplamının 180 derece olduğunu söylemek bir bilgidir; ancak köşeleri fareyle sürüklerken açılar değiştiği halde toplamın sürekli 180 kaldığını kendi gözleriyle görmesi <strong>derin ve kalıcı öğrenmedir</strong>.</p>
+        <h2>Çarpma İşlemini Somutlaştırmanın 3 Yolu</h2>
+        <p>Öğrenciye <em>3 x 4 = 12</em> ezberletilmeden önce; 3 kutunun içine 4'er ceviz koyularak toplamın 12 olduğu gösterilmelidir (Gruplama mantığı).</p>
 
         <div class="callout callout-tip">
-          <div class="callout-icon"><i class="fa-solid fa-check-double"></i></div>
+          <div class="callout-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
           <div class="callout-body">
-            <h4>Akıllı Tahta İle Uyumlu Kullanım İpucu</h4>
-            <p>Materyal paketimizdeki <code>.ggb</code> uzantılı dosyaları herhangi bir kurulum yapmadan doğrudan <em>geogebra.org/classic</em> üzerinden akıllı tahtanızda tam ekran çalıştırabilirsiniz.</p>
+            <h4>Sınıfta 'Çarpma Şampiyonu' Tombalası</h4>
+            <p>PDF içeriğindeki tombala kartlarını öğrencilere dağıtın. Öğretmen <em>"5 kere 4?"</em> dediğinde taştaki 20 sayısını bulan ilk öğrenci pulunu yerleştirir.</p>
           </div>
         </div>
-
-        <h2>Paket İçeriğinde Neler Var?</h2>
-        <ul>
-          <li><strong>Pisagor Teoremi Kanıt Simülatörü:</strong> Alan korunumlu dinamik su tankı ve kare parçalama animasyonu.</li>
-          <li><strong>Fonksiyon Dönüşümleri:</strong> Parabol ve trigonometrik eğrilerin katsayı değişimlerine göre şekil alma kılavuzu.</li>
-          <li><strong>Dairede Açı & Yay İlişkisi:</strong> Teğet-kiriş açılarının interaktif sürgü kontrolleri.</li>
-        </ul>
       `
     },
     {
       id: 3,
-      slug: "sinifta-etkilesimi-artiran-7-ucretsiz-dijital-arac",
-      title: "Sınıfta Katılımı ve Etkileşimi Zirveye Taşıyan 7 Ücretsiz Dijital Araç",
-      category: "egitim-teknolojileri",
-      categoryName: "Eğitim Teknolojileri",
-      categoryColor: "#059669",
-      date: "12 Ağustos 2026",
+      slug: "3-sinif-okudugunu-anlama-ve-5n1k-metin-analizi-calisma-yapraklari",
+      title: "3. Sınıf Okuduğunu Anlama ve 5N1K Metin Analizi Çalışma Yaprakları",
+      category: "3-sinif",
+      categoryName: "3. Sınıf Materyalleri",
+      categoryColor: "#0284c7",
+      date: "14 Ağustos 2026",
       readTime: "5 dk okuma",
-      views: 4120,
-      likes: 312,
-      authorKey: "elif-sahin",
+      views: 2940,
+      likes: 198,
+      authorKey: "zeynep-hoca",
       isFeatured: true,
-      coverImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=1200",
-      excerpt: "Padlet, Mentimeter, Canva Edu, Wordwall ve daha fazlası... Sınıftaki her öğrencinin derse aktif katılımını sağlayan pratik eğitim teknolojileri rehberi.",
-      tags: ["Web 2.0", "Eğitim Teknolojileri", "Oyunlaştırma", "Canva", "Mentimeter", "Wordwall"],
+      coverImage: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80&w=1200",
+      excerpt: "Öğrencilerin okudukları hikâyelerden anlam çıkarmasını, ana fikir tespit etmesini ve 5N1K sorularını eksiksiz yanıtlamasını sağlayan eğlenceli metinler.",
+      tags: ["3. Sınıf", "Türkçe", "5N1K", "Okuduğunu Anlama", "Hikaye Haritası"],
       materials: [
         {
-          name: "Sinif_Ici_Dijital_Araclar_Karsilastirma_Tablosu.pdf",
-          size: "1.8 MB",
+          name: "3_Sinif_10_Adet_Ozgun_5N1K_Hikaye_Seti.pdf",
+          size: "3.7 MB",
+          format: "PDF",
+          icon: "fa-solid fa-file-pdf"
+        },
+        {
+          name: "Hikaye_Unsuru_ve_Karakter_Analiz_Formu.pdf",
+          size: "1.4 MB",
           format: "PDF",
           icon: "fa-solid fa-file-pdf"
         }
       ],
       content: `
-        <p class="lead">Sınıfta parmak kaldıran 3-4 öğrenciyle ders işleme devri kapandı. Tüm sınıfın anonim veya isimli olarak fikir belirttiği, anlık oylama yaptığı ve eğitsel oyunlarla öğrendiği bir sınıf ortamı yaratmak artık çok kolay.</p>
+        <p class="lead">3. sınıfta sadece hızlı okumak yeterli değildir; metindeki duygu geçişlerini anlamak, sebep-sonuç ilişkisi kurmak ve olay akışını zihinde canlandırmak hedeflenir.</p>
 
-        <h2>1. Mentimeter (Anlık Geri Bildirim ve Kelime Bulutu)</h2>
-        <p>Derse başlarken öğrencilerin konuya dair ön bilgilerini veya hislerini 1 dakikalık bir "Kelime Bulutu" (Word Cloud) anketiyle tahtaya yansıtabilirsiniz. Telefon veya tablet üzerinden QR kodla 10 saniyede katılım sağlanır.</p>
+        <h2>5N1K Dedektifleri Etkinliği</h2>
+        <p>Her öğrenciye bir dedektif büyüteci şablonu vererek metin içerisindeki <strong>Kim, Ne, Nerede, Ne Zaman, Nasıl ve Neden</strong> sorularının ipuçlarını farklı renkli fosforlu kalemlerle çizdiriyoruz.</p>
 
-        <h2>2. Padlet (Dijital Mantar Pano)</h2>
-        <p>Grup projeleri, ödev teslimleri ve sınıf içi beyin fırtınaları için öğrencilerin resim, ses kaydı, metin ve bağlantı yapıştırabildiği harika bir işbirlikli çalışma alanı.</p>
-
-        <h2>3. Wordwall (Hızlı Oyunlaştırma)</h2>
-        <p>5 dakikada eşleştirme, çarkıfelek, köstebek vurmaca veya labirent kovalamaca formatında interaktif testler oluşturup akıllı tahtada yarışma düzenleyebilirsiniz.</p>
-
-        <h2>4. Canva for Education (Tamamen Ücretsiz Pro Özellikler)</h2>
-        <p>Öğretmen belgenizle başvurduğunuzda Canva'nın tüm premium grafik, sunum ve çalışma sayfası şablonlarına ömür boyu ücretsiz erişim sağlayabilirsiniz.</p>
+        <ul>
+          <li><strong>Kim? (Mavi):</strong> Olayın kahramanları.</li>
+          <li><strong>Nerede? (Yeşil):</strong> Mekân ve çevre detayları.</li>
+          <li><strong>Ne Zaman? (Turuncu):</strong> Zaman dilimi.</li>
+          <li><strong>Neden? (Kırmızı):</strong> Olayın gerçekleşme sebebi.</li>
+        </ul>
       `
     },
     {
       id: 4,
-      slug: "yeni-nesil-sinif-yonetimi-ve-pozitif-disiplin",
-      title: "Yeni Nesil Sınıf Yönetimi: Öğrencileri Sürece Dahil Eden 5 Pozitif Disiplin Stratejisi",
-      category: "pedagoji-rehberlik",
-      categoryName: "Pedagoji & Rehberlik",
-      categoryColor: "#d97706",
-      date: "09 Ağustos 2026",
-      readTime: "7 dk okuma",
-      views: 2450,
-      likes: 180,
-      authorKey: "ahmet-yilmaz",
+      slug: "4-sinif-yer-kabugu-ve-maddenin-halleri-interaktif-deney-seti",
+      title: "4. Sınıf Fen Bilimleri: Yer Kabuğu ve Maddenin Halleri İnteraktif Deney ve Görsel Seti",
+      category: "4-sinif",
+      categoryName: "4. Sınıf Materyalleri",
+      categoryColor: "#059669",
+      date: "11 Ağustos 2026",
+      readTime: "4 dk okuma",
+      views: 2680,
+      likes: 184,
+      authorKey: "zeynep-hoca",
       isFeatured: false,
-      coverImage: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&q=80&w=1200",
-      excerpt: "Ceza ve ödül kısır döngüsüne girmeden; karşılıklı saygı, net sınırlar ve içsel motivasyonla huzurlu bir sınıf iklimi inşa etmenin bilimsel yolları.",
-      tags: ["Sınıf Yönetimi", "Pedagoji", "Pozitif Disiplin", "Rehberlik", "Öğrenci Psikolojisi"],
+      coverImage: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=1200",
+      excerpt: "Sınıf ortamında basit malzemelerle yapılabilecek kayaç, fosil ve madde deneyleri; görsel şemalar ve deney raporu şablonları.",
+      tags: ["4. Sınıf", "Fen Bilimleri", "Yer Kabuğu", "Maddenin Halleri", "Basit Deneyler"],
       materials: [
         {
-          name: "Sinif_Anlasmasi_ve_Kural_Gelistirme_Sablonu.docx",
-          size: "320 KB",
-          format: "DOCX",
-          icon: "fa-solid fa-file-word"
+          name: "4_Sinif_Fen_Bilimleri_Deney_ve_Gozlem_Defteri.pdf",
+          size: "4.2 MB",
+          format: "PDF",
+          icon: "fa-solid fa-file-pdf"
         }
       ],
       content: `
-        <p class="lead">Sınıf yönetimi, öğrencileri sessizce sırada oturtmak değil; öğrenmeye istekli, güven dolu ve birbirine saygılı bir topluluk inşa etme sanatıdır.</p>
+        <p class="lead">4. sınıf öğrencilerimizin bilime olan merakını uyandırmak için kitaptaki kuru tanımlar yerine mutfak malzemeleriyle (un, su, oyun hamuru, sirke) yapılan somut deneyler gibisi yoktur!</p>
 
-        <h2>1. 'Kurallar' Değil, 'Sınıf Anlaşması'</h2>
-        <p>Öğretmenin tek taraflı dikte ettiği kurallar direnç üretir. Yılın ilk haftasında öğrencilerle birlikte <em>"Bu sınıfta kendimizi nasıl güvende ve mutlu hissederiz?"</em> sorusu etrafında maddeleri belirleyip herkesin imzaladığı bir poster asmak sahiplenmeyi katbekat artırır.</p>
-
-        <h2>2. Davranışa Odaklanın, Kişiliğe Değil</h2>
-        <p><em>"Çok yaramazsın"</em> veya <em>"Dikkatsizsin"</em> gibi yaftalar yerine; <em>"Arkadaşın konuşurken sözünü kestiğinde kendisini dinlenmemiş hissediyor"</em> şeklinde net durum tespiti yapın.</p>
-
-        <h2>3. 'Ben' Dili ve Sessiz İşaretler</h2>
-        <p>Sınıfta ses yükseldiğinde öğretmenin bağırması gürültüyü ikiye katlar. Ritmik alkış, iki elin havaya kaldırılması veya küçük bir masa zili gibi önceden kararlaştırılmış görsel/işitsel çapa sinyalleri kullanın.</p>
+        <h2>Sınıfta 15 Dakikada Fosil Oluşumu Deneyi</h2>
+        <p>Oyun hamuru ve alçı kullanarak yaprak veya deniz kabuğu izi çıkarıyoruz. Öğrenciler milyonlarca yıllık jeolojik katmanlaşma mantığını kendi elleriyle deneyimliyor.</p>
       `
     },
     {
       id: 5,
-      slug: "rubrik-dereceli-puanlama-anahtari-hazirlama-rehberi",
-      title: "Rubrik (Dereceli Puanlama Anahtarı) Hazırlama Rehberi ve Örnek Şablonlar",
+      slug: "ilkokulda-surec-odakli-degerlendirme-ve-rubrik-sablonlari",
+      title: "İlkokulda Süreç Odaklı Değerlendirme: Gözlem Formları ve Beceri Rubrikleri",
       category: "olcme-degerlendirme",
       categoryName: "Ölçme & Değerlendirme",
-      categoryColor: "#db2777",
-      date: "05 Ağustos 2026",
-      readTime: "5 dk okuma",
-      views: 1980,
-      likes: 145,
-      authorKey: "selin-yurtsever",
+      categoryColor: "#d97706",
+      date: "08 Ağustos 2026",
+      readTime: "6 dk okuma",
+      views: 4210,
+      likes: 310,
+      authorKey: "mehmet-odm",
       isFeatured: false,
       coverImage: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&q=80&w=1200",
-      excerpt: "Öğrenci projelerini, sunumları ve kompozisyonları objektif, şeffaf ve geribildirim odaklı değerlendirmek için analitik rubrik oluşturma adımları.",
-      tags: ["Ölçme Değerlendirme", "Rubrik", "Performans Görevi", "MEB Kriterleri"],
+      excerpt: "Yahşihan ÖDM onaylı; ilkokul 1-4. sınıf Türkçe, Matematik ve Hayat Bilgisi kazanımları için hazırlanmış hazır rubrik ve gözlem ölçekleri.",
+      tags: ["Yahşihan ÖDM", "Ölçme Değerlendirme", "Rubrik", "Süreç Değerlendirme", "Gözlem Formu"],
       materials: [
         {
-          name: "Analitik_ve_Holistik_Rubrik_Ornek_Sablonlari.xlsx",
-          size: "620 KB",
+          name: "Ilkokul_1_4_Sinif_Surec_Odakli_Rubrik_Paketi.xlsx",
+          size: "850 KB",
           format: "XLSX",
           icon: "fa-solid fa-file-excel"
         },
         {
-          name: "Proje_Degerlendirme_Formu_PDF.pdf",
-          size: "1.2 MB",
+          name: "Ogrenci_Bireysel_Gelisim_ve_Gozlem_Olcegi_PDF.pdf",
+          size: "2.1 MB",
           format: "PDF",
           icon: "fa-solid fa-file-pdf"
         }
       ],
       content: `
-        <p class="lead">Öğrencilerin bir performans görevinden neden 85 veya 70 aldığını şeffaf bir şekilde anlaması, öğrenme açığını kapatmanın en kritik adımıdır.</p>
+        <p class="lead">İlkokul kademesinde klasik not odaklı sınavlar yerine; çocuğun çabasını, akran işbirliğini ve beceri kazanımını ölçen süreç temelli araçlar kullanılmalıdır.</p>
 
-        <h2>Holistik mi, Analitik Rubrik mi?</h2>
-        <p><strong>Holistik (Bütünsel) Rubrik:</strong> Sürecin genel başarısını tek bir puan aralığında hızlıca değerlendirmek için uygundur (Örn: Hızlı resim veya kompozisyon taraması).</p>
-        <p><strong>Analitik Rubrik:</strong> Görevi alt boyutlara (Araştırma, İçerik Derinliği, Sunum Becerisi, Kaynakça Kullanımı) bölerek her kritere 1-4 arası ayrı puan verir. Öğrenciye net yol gösterir.</p>
-
-        <h2>Etkili Bir Rubrik İçin 4 Temel Adım</h2>
-        <ol>
-          <li>Öğrenme hedefini (kazanımı) açıkça tanımlayın.</li>
-          <li>Kriterleri belirleyin (Maksimum 4-6 kriter idealdir).</li>
-          <li>Başarı düzeylerini adlandırın (Geliştirilmeli, Yeterli, İyi, Mükemmel).</li>
-          <li>Her düzey için gözlemlenebilir davranış tanımları yazın.</li>
-        </ol>
+        <h2>Yahşihan ÖDM Süreç Odaklı Değerlendirme İlkeleri</h2>
+        <ul>
+          <li><strong>Anlık Geribildirim:</strong> Hatanın hemen ardından düzeltici, cesaretlendirici ipucu vermek.</li>
+          <li><strong>Öz Değerlendirme:</strong> Öğrencinin 'Bugün neyi iyi yaptım, nerede zorlandım?' sorusunu cevaplaması.</li>
+          <li><strong>Gelişim Dosyası (Portfolyo):</strong> Öğrencinin dönem başı ile dönem sonu arasındaki somut ilerlemesini belgelemek.</li>
+        </ul>
       `
     },
     {
       id: 6,
-      slug: "gorsel-uretim-araclari-ile-ders-sunumlarini-zenginlestirme",
-      title: "Görsel Üretim Araçları (Midjourney & Canva Magic) ile Ders Sunumlarını Zenginleştirme",
-      category: "yapay-zeka",
-      categoryName: "Yapay Zekâ",
+      slug: "sinif-ogretmenleri-icin-yapay-zeka-ozgun-okuma-masali-ve-boyama-sayfasi",
+      title: "Sınıf Öğretmenleri İçin Yapay Zekâ: Dakikalar İçinde Özgün Masal ve Boyama Sayfası Üretimi",
+      category: "ogretmen-teknoloji",
+      categoryName: "Öğretmen & Teknoloji",
       categoryColor: "#4f46e5",
-      date: "01 Ağustos 2026",
-      readTime: "4 dk okuma",
-      views: 2670,
-      likes: 188,
-      authorKey: "zeynep-kaya",
+      date: "03 Ağustos 2026",
+      readTime: "5 dk okuma",
+      views: 3650,
+      likes: 289,
+      authorKey: "emre-hoca",
       isFeatured: false,
       coverImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1200",
-      excerpt: "Tarih, fen ve edebiyat derslerinde öğrencilerin hayal gücünü harekete geçirecek benzersiz ve telifsiz eğitsel illüstrasyonlar üretin.",
-      tags: ["Görsel Yapay Zekâ", "Midjourney", "Canva", "Sunum Teknikleri", "Görselleştirme"],
+      excerpt: "Sınıfınızdaki öğrencilerin isimlerinin geçtiği eğitici değerler masalları ve ders kazanımına özel çizgi boyama sayfalarını yapay zekâ ile üretme rehberi.",
+      tags: ["Yapay Zekâ", "Sınıf Öğretmeni", "ChatGPT", "Değerler Eğitimi", "Boyama Sayfası"],
       materials: [
         {
-          name: "Egitimde_Gorsel_Prompt_Rehberi.pdf",
-          size: "3.5 MB",
+          name: "Sinif_Ogretmenleri_Icin_25_Hazir_Masal_ve_Etkinlik_Promptu.pdf",
+          size: "2.8 MB",
           format: "PDF",
           icon: "fa-solid fa-file-pdf"
         }
       ],
       content: `
-        <p class="lead">Ders kitaplarındaki klasik fotoğrafların ötesine geçerek; Fatih Sultan Mehmet'in kütüphanesini, bir bitki hücresinin iç kesitini veya Mars kolonisi simülasyonunu öğrencilerinizin gözleri önüne serebilirsiniz.</p>
+        <p class="lead">Bir sınıf öğretmeninin en büyük gücü öğrencilerini tanımasıdır. Yapay zekâyı kullanarak sınıfınızdaki Ali, Elif ve Can'ın başkahraman olduğu, 'paylaşma' veya 'doğa sevgisi' temalı sıcacık bir okuma masalını 1 dakikada üretebilirsiniz.</p>
 
-        <h2>Telif Derdi Olmadan Özgün Eğitsel Görseller</h2>
-        <p>Google Görseller'de saatlerce çözünürlüğü düşük ya da telif hakkı korumalı görseller aramak yerine, istediğiniz pedagojik sahneyi tam olarak tarif edip saniyeler içinde üretebilirsiniz.</p>
-
-        <h2>Örnek Fen Bilgisi Promptu:</h2>
-        <pre><code>"Educational 3D scientific illustration of a plant cell with chloroplast, mitochondria and nucleus, labeled cross-section, bright clean educational style, high resolution --ar 16:9"</code></pre>
-      `
-    },
-    {
-      id: 7,
-      slug: "ogretmenler-icin-zaman-yonetimi-ve-haftalik-planlama",
-      title: "Öğretmenler İçin Zaman Yönetimi: Tükenmişlikten Korunma ve Haftalık Planlama",
-      category: "pedagoji-rehberlik",
-      categoryName: "Pedagoji & Rehberlik",
-      categoryColor: "#d97706",
-      date: "28 Temmuz 2026",
-      readTime: "5 dk okuma",
-      views: 1830,
-      likes: 162,
-      authorKey: "ahmet-yilmaz",
-      isFeatured: false,
-      coverImage: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&q=80&w=1200",
-      excerpt: "Evrak işleri, sınav okumaları ve ders hazırlığı arasında sıkışmadan öğretmenin kendi yaşamına ve mesleki gelişimine kaliteli vakit ayırma yöntemleri.",
-      tags: ["Zaman Yönetimi", "Öğretmen Gelişimi", "Well-being", "Planlama"],
-      materials: [
-        {
-          name: "Ogretmen_Haftalik_Planlama_ve_Zaman_Cizelgesi.pdf",
-          size: "890 KB",
-          format: "PDF",
-          icon: "fa-solid fa-file-pdf"
-        }
-      ],
-      content: `
-        <p class="lead">Öğretmenlik sadece okul zili çaldığında başlayan ve biten bir meslek değildir; ancak sınırları çizilmediğinde kronik yorgunluk ve tükenmişlik kaçınılmaz olur.</p>
-
-        <h2>1. 'Zaman Bloklama' (Time Blocking) Tekniği</h2>
-        <p>Sınav kağıtlarını gün içine parça parça yaymak yerine haftada 2 kez 45'er dakikalık kesintisiz odaklanma blokları belirleyin.</p>
-
-        <h2>2. 2 Dakika Kuralı</h2>
-        <p>Bir e-postayı yanıtlamak veya bir formu onaylamak 2 dakikadan az sürecekse, onu yapılacaklar listesine eklemeden anında tamamlayın.</p>
-      `
-    },
-    {
-      id: 8,
-      slug: "lgs-ve-yks-icin-yeni-nesil-paragraf-ve-mantik-sorulari",
-      title: "LGS ve YKS İçin Yeni Nesil Paragraf ve Mantık Muhakeme Soru Seti",
-      category: "ders-materyalleri",
-      categoryName: "Ders Materyalleri",
-      categoryColor: "#0284c7",
-      date: "22 Temmuz 2026",
-      readTime: "4 dk okuma",
-      views: 3150,
-      likes: 240,
-      authorKey: "murat-demir",
-      isFeatured: false,
-      coverImage: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80&w=1200",
-      excerpt: "MEB ve ÖSYM formatına %100 uyumlu; grafik, tablo ve infografik yorumlama temelli özgün soru fasikülü.",
-      tags: ["LGS", "YKS", "Paragraf", "Mantık Muhakeme", "Soru Bankası"],
-      materials: [
-        {
-          name: "Yeni_Nesil_Paragraf_ve_Mantik_Fasikulu.pdf",
-          size: "5.2 MB",
-          format: "PDF",
-          icon: "fa-solid fa-file-pdf"
-        }
-      ],
-      content: `
-        <p class="lead">Öğrencilerin sınavda en çok vakit kaybettiği infografik ve mantık muhakeme sorularında pratik kazanmalarını sağlayacak özel çalışma fasikülü.</p>
-        
-        <h2>Fasikülde Neler Var?</h2>
-        <ul>
-          <li>Çapraz tablo yorumlama soruları.</li>
-          <li>Akış şeması ve algoritma mantıklı sözel sorular.</li>
-          <li>Detaylı video çözümlü QR kod bağlantıları.</li>
-        </ul>
+        <h2>Örnek Değerler Eğitimi Masal Promptu:</h2>
+        <pre><code>"Sen deneyimli bir ilkokul 2. sınıf öğretmenisin. Sınıfımdaki öğrenciler için 'Arkadaşlık ve Yardımlaşma' temasını işleyen, içinde basit heceler ve diyaloglar bulunan 150 kelimelik neşeli bir masal yaz. Masalın sonuna 3 adet okuduğunu anlama sorusu ekle."</code></pre>
       `
     }
   ],
 
   faqs: [
     {
-      question: "Bu sitedeki materyalleri sınıfımda ücretsiz kullanabilir miyim?",
-      answer: "Evet! Sitede paylaşılan tüm ders materyalleri, çalışma yaprakları ve şablonlar eğitim amacıyla tamamen ücretsizdir. Kendi sınıfınızda çıktı alarak veya dijital olarak serbestçe kullanabilirsiniz."
+      question: "Yahşihan ÖDM materyallerini sınıfımda çıktı alarak ücretsiz dağıtabilir miyim?",
+      answer: "Kesinlikle evet! Yahşihan Ölçme Değerlendirme Merkezi olarak sitemizdeki tüm çalışma yaprakları, fasiküller, rubrikler ve testler ilkokul öğretmenlerimize ve öğrencilerimize tamamen ücretsizdir."
     },
     {
-      question: "Ben de sitede blog yazarı veya materyal üreticisi olabilir miyim?",
-      answer: "Harika olur! Öğretmenler arası bilgi ve materyal paylaşımını destekliyoruz. İletişim sayfasındaki formu doldurarak branşınızı ve paylaşmak istediğiniz içerik konusunu bize iletebilirsiniz."
+      question: "Materyaller MEB ilkokul (1-4. Sınıf) müfredatına ve kazanımlarına uygun mu?",
+      answer: "Evet, paylaşılan her çalışma kağıdı ve değerlendirme ölçeği Milli Eğitim Bakanlığı Temel Eğitim Genel Müdürlüğü'nün güncel ilkokul ders kazanımları ve haftalık ders çizelgesi titizlikle incelenerek hazırlanmıştır."
     },
     {
-      question: "Ders planı ve yapay zekâ promptlarını MEB müfredatına göre uyarlayabilir miyim?",
-      answer: "Kesinlikle. Yazılarımızdaki tüm prompt örnekleri MEB kazanım yapısına uyumlu şekilde modüler olarak hazırlanmıştır; sınıf seviyenize ve kazanım kodunuza göre kolayca özelleştirebilirsiniz."
+      question: "Sınıf öğretmeni olarak ben de hazırladığım özgün materyalleri paylaşabilir miyim?",
+      answer: "Çok memnun oluruz! Sitemizin İletişim sayfasından veya Yahşihan ÖDM iletişim kanallarından hazırladığınız PDF/Word materyallerinizi bize ulaştırabilir, adınızla sitede yayınlatabilirsiniz."
     },
     {
-      question: "Yeni eklenen yazılardan ve materyallerden nasıl haberdar olabilirim?",
-      answer: "Ana sayfada veya sayfa altındaki 'Öğretmen Bülteni' alanına e-posta adresinizi bırakarak haftalık derleme bültenimize ücretsiz abone olabilirsiniz."
-    }
-  ],
-
-  testimonials: [
-    {
-      name: "Ayşe Özkan",
-      role: "Sınıf Öğretmeni, İzmir",
-      comment: "Ders hazırlık süremi yarıya indiren pratik yapay zekâ promptları ve hemen sınıfta uygulayabileceğim çalışma yaprakları için harika bir kaynak!",
-      avatar: "https://images.unsplash.com/photo-1548142813-c348350df52b?auto=format&fit=crop&q=80&w=200"
-    },
-    {
-      name: "Mehmet Can Tan",
-      role: "Fen Bilimleri Öğretmeni, Ankara",
-      comment: "Eğitim teknolojilerini laf kalabalığından arındırıp sınıfta doğrudan ne işe yaradığını anlatan sade ve profesyonel bir platform.",
-      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200"
-    },
-    {
-      name: "Derya Korkmaz",
-      role: "Rehberlik ve Psikolojik Danışman, İstanbul",
-      comment: "Pozitif sınıf yönetimi ve öğretmen iyi oluş haline yönelik yazılar tüm zümre arkadaşlarımın takdirini kazandı.",
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200"
+      question: "Admin panelinden yeni blog yazısı veya ders materyali nasıl eklenir?",
+      answer: "Sayfanın üst menüsündeki 'Admin Paneli' butonuna tıklayarak veya doğrudan '#admin' adresine giderek teknik bilgiye gerek kalmadan yeni başlık, kapak görseli ve içerik girip anında yayınlayabilirsiniz."
     }
   ]
 };
 
 // Global export
 if (typeof window !== "undefined") {
-  window.BLOG_DATA = BLOG_DATA;
+  window.DEFAULT_BLOG_DATA = DEFAULT_BLOG_DATA;
 }

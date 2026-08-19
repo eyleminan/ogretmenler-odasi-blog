@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Paneli | Yahşihan Ölçme Değerlendirme Merkezi</title>
+  <meta name="description" content="Yahşihan ÖDM Eğitim Blogu Sade ve Kullanıcı Dostu Öğretmen Yönetim Paneli.">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚙️</text></svg>">
+  
+  <!-- FontAwesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Ana CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body style="background-color: var(--bg-muted);">
+
+  <!-- Üst Bar -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">Yahşihan ÖDM</span>
+          <span class="brand-subtitle">Öğretmen Yönetim Paneli</span>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <a href="index.html" class="reading-btn" style="background: var(--bg-surface);">
+          <i class="fa-solid fa-arrow-left"></i> Siteye Dön
+        </a>
+        <button class="reading-btn" onclick="AdminApp.resetToDefaults()" title="Varsayılan İlkokul İçeriklerine Sıfırla" style="color: var(--accent-amber);">
+          <i class="fa-solid fa-rotate-left"></i> Varsayılana Dön
+        </button>
+        <button class="icon-btn" id="theme-toggle-btn" title="Tema Değiştir">
+          <i class="fa-regular fa-moon" id="theme-icon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Admin Ana Gövde -->
+  <main class="container" style="padding-top: 30px; padding-bottom: 60px;">
+    
+    <div class="admin-wrapper">
+      <!-- Admin Üst Navigasyon Çubuğu -->
+      <div class="admin-header-bar">
+        <div class="admin-brand">
+          <div class="admin-brand-icon">
+            <i class="fa-solid fa-sliders"></i>
+          </div>
+          <div>
+            <h2 style="font-size: 1.25rem; font-weight: 800; color: #fff;">Öğretmen İçerik Masası</h2>
+            <p style="font-size: 0.8rem; color: rgba(255,255,255,0.75); margin: 0;">Ders materyallerini ve blog yazılarını kolayca yönetin</p>
+          </div>
+        </div>
+
+        <div class="admin-nav-tabs">
+          <button class="admin-tab-btn active" data-tab="dashboard" onclick="AdminApp.switchTab('dashboard')">
+            <i class="fa-solid fa-chart-pie"></i> Dashboard
+          </button>
+          <button class="admin-tab-btn" data-tab="posts" onclick="AdminApp.switchTab('posts')">
+            <i class="fa-solid fa-newspaper"></i> Blog Yazıları
+          </button>
+          <button class="admin-tab-btn" data-tab="categories" onclick="AdminApp.switchTab('categories')">
+            <i class="fa-solid fa-layer-group"></i> Kategoriler
+          </button>
+        </div>
+      </div>
+
+      <!-- Admin Sekme İçerikleri -->
+      <div class="admin-body">
+
+        <!-- 1. SEKME: DASHBOARD -->
+        <section id="admin-tab-dashboard">
+          <div class="admin-metrics-grid">
+            <div class="admin-metric-card">
+              <div class="metric-icon-box" style="background: rgba(79, 70, 229, 0.1); color: var(--primary);">
+                <i class="fa-solid fa-newspaper"></i>
+              </div>
+              <div>
+                <div class="metric-number" id="dash-total-posts">0</div>
+                <div class="metric-label">Toplam Blog Yazısı</div>
+              </div>
+            </div>
+
+            <div class="admin-metric-card">
+              <div class="metric-icon-box" style="background: rgba(2, 132, 199, 0.1); color: var(--secondary);">
+                <i class="fa-solid fa-layer-group"></i>
+              </div>
+              <div>
+                <div class="metric-number" id="dash-total-categories">0</div>
+                <div class="metric-label">Toplam Kategori</div>
+              </div>
+            </div>
+
+            <div class="admin-metric-card">
+              <div class="metric-icon-box" style="background: rgba(5, 150, 105, 0.1); color: var(--accent-green);">
+                <i class="fa-solid fa-file-arrow-down"></i>
+              </div>
+              <div>
+                <div class="metric-number" id="dash-total-materials">0</div>
+                <div class="metric-label">İndirilebilir Materyal</div>
+              </div>
+            </div>
+
+            <div class="admin-metric-card">
+              <div class="metric-icon-box" style="background: rgba(236, 72, 153, 0.1); color: var(--accent-rose);">
+                <i class="fa-solid fa-eye"></i>
+              </div>
+              <div>
+                <div class="metric-number" id="dash-total-views">0</div>
+                <div class="metric-label">Toplam Okunma</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hızlı İşlemler Çubuğu -->
+          <div style="background: var(--bg-muted); padding: 18px 22px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 2px;">Hızlı İşlem Menüsü</h4>
+              <p style="font-size: 0.82rem; color: var(--text-secondary); margin: 0;">Sınıfınız veya zümreniz için yeni bir materyal paylaşın.</p>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <button class="btn-download" onclick="AdminApp.switchTab('posts'); AdminApp.showNewPostForm();" style="background: var(--primary);">
+                <i class="fa-solid fa-plus"></i> Yeni Blog Yazısı Ekle
+              </button>
+              <button class="reading-btn" onclick="AdminApp.switchTab('categories');" style="background: var(--bg-surface);">
+                <i class="fa-solid fa-folder-plus"></i> Kategori Yönetimi
+              </button>
+              <a href="index.html" class="reading-btn" target="_blank" style="background: var(--bg-surface);">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> Canlı Siteyi Aç
+              </a>
+            </div>
+          </div>
+
+          <!-- Son Eklenen Yazılar Tablosu -->
+          <div class="section-header" style="margin-bottom: 16px;">
+            <h3 style="font-size: 1.15rem; font-weight: 800;">Son Eklenen İçerikler</h3>
+          </div>
+          <div class="admin-table-wrapper">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Görsel</th>
+                  <th>Başlık</th>
+                  <th>Kategori</th>
+                  <th>Yazar</th>
+                  <th>Tarih</th>
+                  <th>Okunma</th>
+                  <th>İşlemler</th>
+                </tr>
+              </thead>
+              <tbody id="dash-recent-posts-tbody">
+                <!-- Dinamik JavaScript ile doldurulacak -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 2. SEKME: BLOG YAZILARI YÖNETİMİ -->
+        <section id="admin-tab-posts" style="display: none;">
+          
+          <!-- Yeni Yazı Ekleme / Düzenleme Formu -->
+          <div class="admin-form-card" id="post-form-container">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+              <h3 style="font-size: 1.2rem; font-weight: 800;" id="post-form-title">
+                <i class="fa-solid fa-feather-pointed" style="color: var(--primary); margin-right: 6px;"></i> Yeni Blog Yazısı & Materyal Ekle
+              </h3>
+              <button class="reading-btn" id="btn-cancel-edit" style="display: none;" onclick="AdminApp.cancelEditPost()">
+                <i class="fa-solid fa-xmark"></i> Düzenlemeyi İptal Et
+              </button>
+            </div>
+
+            <form id="blog-post-form" onsubmit="AdminApp.handleSavePost(event)">
+              <input type="hidden" id="form-post-id" value="">
+
+              <div class="form-group">
+                <label class="form-label" for="form-post-title">Blog Yazısı Başlığı *</label>
+                <input type="text" id="form-post-title" class="form-control" placeholder="Örn: 2. Sınıf Ritmik Saymalar ve Eğlenceli Matematik Tombalası" required>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label" for="form-post-category">Kategori *</label>
+                  <select id="form-post-category" class="form-control" required>
+                    <!-- Dinamik doldurulacak -->
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="form-post-readtime">Okuma Süresi</label>
+                  <input type="text" id="form-post-readtime" class="form-control" placeholder="Örn: 4 dk okuma" value="4 dk okuma">
+                </div>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label" for="form-post-author-name">Yazar Adı Soyadı *</label>
+                  <input type="text" id="form-post-author-name" class="form-control" placeholder="Örn: Ayşe Çelik (Sınıf Öğretmeni)" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="form-post-author-title">Yazar Unvanı / Okulu</label>
+                  <input type="text" id="form-post-author-title" class="form-control" placeholder="Örn: Uzman Sınıf Öğretmeni" value="Sınıf Öğretmeni">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="form-post-image">Kapak Görseli URL Adresi *</label>
+                <div style="display: flex; gap: 8px;">
+                  <input type="url" id="form-post-image" class="form-control" placeholder="https://images.unsplash.com/..." required>
+                  <button type="button" class="reading-btn" onclick="AdminApp.pickPresetImage()" title="Örnek Görsel Seç">
+                    <i class="fa-solid fa-image"></i> Örnek Görseller
+                  </button>
+                </div>
+                <div style="display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap;" id="preset-images-bar">
+                  <span style="font-size:0.75rem; color:var(--text-muted); align-self:center;">Hızlı Seç:</span>
+                  <button type="button" class="post-tag-chip" onclick="AdminApp.setPresetImage('okuma')">📚 1. Sınıf Okuma</button>
+                  <button type="button" class="post-tag-chip" onclick="AdminApp.setPresetImage('matematik')">🔢 Matematik</button>
+                  <button type="button" class="post-tag-chip" onclick="AdminApp.setPresetImage('fen')">🔬 Fen Deneyi</button>
+                  <button type="button" class="post-tag-chip" onclick="AdminApp.setPresetImage('olcme')">📊 Ölçme Rubrik</button>
+                  <button type="button" class="post-tag-chip" onclick="AdminApp.setPresetImage('teknoloji')">🤖 Yapay Zekâ</button>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="form-post-excerpt">Kısa Özet (Kartta görünecek metin) *</label>
+                <textarea id="form-post-excerpt" class="form-control" style="min-height: 70px;" placeholder="Yazının ana fikrini anlatan 1-2 cümlelik kısa açıklama..." required></textarea>
+              </div>
+
+              <div class="form-group">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                  <label class="form-label" for="form-post-content" style="margin-bottom:0;">Yazı İçeriği (HTML / Zengin Metin) *</label>
+                  <div style="display: flex; gap: 6px;">
+                    <button type="button" class="reading-btn" style="padding: 3px 8px; font-size: 0.74rem;" onclick="AdminApp.insertContentSnippet('h2')">+ Başlık 2</button>
+                    <button type="button" class="reading-btn" style="padding: 3px 8px; font-size: 0.74rem;" onclick="AdminApp.insertContentSnippet('callout')">+ İpucu Kutusu</button>
+                    <button type="button" class="reading-btn" style="padding: 3px 8px; font-size: 0.74rem;" onclick="AdminApp.insertContentSnippet('list')">+ Liste</button>
+                    <button type="button" class="reading-btn" style="padding: 3px 8px; font-size: 0.74rem;" onclick="AdminApp.insertContentSnippet('code')">+ Prompt Kutusu</button>
+                  </div>
+                </div>
+                <textarea id="form-post-content" class="form-control" style="min-height: 180px; font-family: var(--font-mono); font-size: 0.88rem;" placeholder="<p>Ders materyalinin detaylarını buraya yazabilirsiniz...</p>" required></textarea>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label" for="form-post-tags">Etiketler (Virgülle ayırın)</label>
+                  <input type="text" id="form-post-tags" class="form-control" placeholder="Örn: 2. Sınıf, Matematik, Çarpım Tablosu, Oyun" value="İlkokul, Ders Materyali">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="form-post-material-name">İndirilebilir Materyal Adı (İsteğe Bağlı)</label>
+                  <input type="text" id="form-post-material-name" class="form-control" placeholder="Örn: 2_Sinif_Carpim_Tablosu_Oyun_Seti.pdf">
+                </div>
+              </div>
+
+              <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 10px;">
+                <button type="reset" class="reading-btn" onclick="AdminApp.resetPostForm()">Formu Temizle</button>
+                <button type="submit" class="btn-download" style="padding: 10px 24px; font-size: 0.92rem;" id="btn-save-post">
+                  <i class="fa-solid fa-floppy-disk"></i> Blog Yazısını Yayınla
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Mevcut Yazılar Listesi Tablosu -->
+          <div class="section-header" style="margin-bottom: 16px;">
+            <div>
+              <h3 style="font-size: 1.15rem; font-weight: 800;">Mevcut Blog Yazıları Listesi</h3>
+              <p style="font-size: 0.84rem; color: var(--text-secondary); margin: 0;">Düzenlemek veya silmek istediğiniz yazıyı seçebilirsiniz.</p>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <input type="text" id="admin-posts-filter" class="form-control" style="width: 220px; padding: 6px 12px; font-size: 0.85rem;" placeholder="Tabloda ara..." oninput="AdminApp.renderPostsTable()">
+            </div>
+          </div>
+
+          <div class="admin-table-wrapper">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Görsel</th>
+                  <th>Başlık</th>
+                  <th>Kategori</th>
+                  <th>Yazar</th>
+                  <th>Tarih</th>
+                  <th>İşlemler</th>
+                </tr>
+              </thead>
+              <tbody id="admin-posts-tbody">
+                <!-- Dinamik JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 3. SEKME: KATEGORİLER YÖNETİMİ -->
+        <section id="admin-tab-categories" style="display: none;">
+          <div class="form-grid-2" style="align-items: start;">
+            <!-- Yeni Kategori Ekleme Formu -->
+            <div class="admin-form-card">
+              <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 18px;">
+                <i class="fa-solid fa-plus" style="color: var(--primary); margin-right: 6px;"></i> Yeni Kategori Ekle
+              </h3>
+              <form id="category-form" onsubmit="AdminApp.handleSaveCategory(event)">
+                <div class="form-group">
+                  <label class="form-label" for="form-cat-name">Kategori Adı *</label>
+                  <input type="text" id="form-cat-name" class="form-control" placeholder="Örn: İngilizce Materyalleri" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="form-cat-slug">Kategori Kodu (Slug) *</label>
+                  <input type="text" id="form-cat-slug" class="form-control" placeholder="Örn: ingilizce-materyalleri" required>
+                </div>
+
+                <div class="form-grid-2">
+                  <div class="form-group">
+                    <label class="form-label" for="form-cat-icon">İkon (FontAwesome)</label>
+                    <input type="text" id="form-cat-icon" class="form-control" placeholder="fa-solid fa-language" value="fa-solid fa-folder">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="form-cat-color">Renk</label>
+                    <input type="color" id="form-cat-color" class="form-control" style="height: 44px; padding: 4px;" value="#4f46e5">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="form-cat-desc">Açıklama</label>
+                  <textarea id="form-cat-desc" class="form-control" style="min-height: 80px;" placeholder="Bu kategorinin içeriğini anlatan kısa bilgi..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-download" style="width: 100%; justify-content: center; padding: 10px;">
+                  <i class="fa-solid fa-plus"></i> Kategoriyi Kaydet
+                </button>
+              </form>
+            </div>
+
+            <!-- Kategoriler Listesi -->
+            <div>
+              <div class="section-header" style="margin-bottom: 14px;">
+                <h3 style="font-size: 1.15rem; font-weight: 800;">Mevcut Kategoriler</h3>
+              </div>
+              <div class="admin-table-wrapper">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>İkon</th>
+                      <th>Kategori Adı</th>
+                      <th>Slug</th>
+                      <th>Yazı Sayısı</th>
+                      <th>İşlem</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-categories-tbody">
+                    <!-- Dinamik JavaScript -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast Bildirimleri -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Veri ve Admin JS -->
+  <script src="data/posts.js"></script>
+  <script src="app.js"></script>
+  <script>
+    // Sayfa yüklendiğinde admin başlat
+    document.addEventListener("DOMContentLoaded", () => {
+      AdminApp.init();
+    });
+  </script>
+</body>
+</html>
